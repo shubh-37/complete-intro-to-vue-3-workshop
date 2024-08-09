@@ -10,6 +10,7 @@ export default {
 </script>
 <template>
   <ul v-if="favorites.length > 0">
+    <h4>Favorites list</h4>
     <li v-for="(character, index) in favorites" :key="`${character}-${index}`">
       {{ character.name }}
     </li>

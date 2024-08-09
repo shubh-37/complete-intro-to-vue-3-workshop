@@ -10,16 +10,17 @@ export default {
         { name: 'Cersei', fav: false, house: 'Lanister' },
         { name: 'Danerys', fav: false, house: 'Targeryen' }
       ],
-        favoriteCharactersList: [],
+      favoriteCharactersList: [],
       characterName: {
-        name: ''
+        name: '',
+        house: 'HighTower'
       }
     }
   },
   methods: {
     addANewCharacter() {
       this.charactersList.push(this.characterName)
-      this.characterName = { name: '' }
+      this.characterName = { name: '', house: 'HighTower' }
     },
     addtoFav(character) {
       this.favoriteCharactersList.push(character)
