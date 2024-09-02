@@ -1,6 +1,6 @@
 <script>
-import AddToFavVue from './components/AddToFav.vue'
 import StatisticsForGotVue from './components/StatisticsForGot.vue'
+import CharacterCard from './components/CharacterCard.vue'
 export default {
   data() {
     return {
@@ -10,7 +10,7 @@ export default {
         { name: 'Cersei', fav: false, house: 'Lanister' },
         { name: 'Danerys', fav: false, house: 'Targeryen' }
       ],
-      favoriteCharactersList: [],
+      favorites: [],
       characterName: {
         name: '',
         house: 'HighTower'
@@ -22,12 +22,12 @@ export default {
       this.charactersList.push(this.characterName)
       this.characterName = { name: '', house: 'HighTower' }
     },
-    addtoFav(character) {
-      this.favoriteCharactersList.push(character)
+    addtoFav(payload) {
+      this.favorites.push(payload)
     }
   },
   components: {
-    AddToFavVue,
+    CharacterCard,
     StatisticsForGotVue
   }
 }
@@ -38,11 +38,16 @@ export default {
     <statistics-for-got-vue :characters="charactersList" />
     <ul>
       <li v-for="(character, index) in charactersList" :key="`${character}-${index}`">
-        {{ character.name }}
-        <button @click="addtoFav(character)">Add to fav</button>
+        <character-card :character="character" @addToFav="addtoFav" />
       </li>
     </ul>
-    <add-to-fav-vue :favorites="favoriteCharactersList" />
+    <ul v-if="favorites.length > 0">
+      <h4>Favorites list</h4>
+      <li v-for="(character, index) in favorites" :key="`${character}-${index}`">
+        {{ character.name }}
+      </li>
+    </ul>
+    <p v-else>There are no favorite characters yet</p>
     <p>Add a new character</p>
     <input type="text" v-model="characterName.name" v-on:keyup.enter="addANewCharacter" />
   </div>
